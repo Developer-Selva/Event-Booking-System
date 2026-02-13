@@ -6,6 +6,7 @@
 - [Configuration](#configuration)
 - [Database Setup](#database-setup)
 - [Running the Application](#running-the-application)
+- [Performing Test case](#test-case)
 
 
 ## 🔧 Requirements
@@ -103,3 +104,9 @@ Admin	2	admin1@example.com, admin2@example.com	password
 Organizer	3	organizer1@example.com, organizer2@example.com, organizer3@example.com	password
 
 Customer	10	customer1@example.com through customer10@example.com	password
+
+## Performing Test case
+**Run this artisan commad to perform the tests**
+```bash
+php artisan test
+```
