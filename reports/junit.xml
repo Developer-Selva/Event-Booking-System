@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/home/selva/EventBookingSystem/phpunit.xml" tests="10" assertions="26" errors="0" failures="0" skipped="0" time="0.674335">
+    <testsuite name="Unit" tests="4" assertions="14" errors="0" failures="0" skipped="0" time="0.360309">
+      <testsuite name="Tests\Unit\ExampleTest" file="/home/selva/EventBookingSystem/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.003311">
+        <testcase name="test_that_true_is_true" file="/home/selva/EventBookingSystem/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.003311"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\PaymentServiceTest" file="/home/selva/EventBookingSystem/tests/Unit/PaymentServiceTest.php" tests="3" assertions="13" errors="0" failures="0" skipped="0" time="0.356998">
+        <testcase name="test_payment_processing_success" file="/home/selva/EventBookingSystem/tests/Unit/PaymentServiceTest.php" line="19" class="Tests\Unit\PaymentServiceTest" classname="Tests.Unit.PaymentServiceTest" assertions="6" time="0.270902"/>
+        <testcase name="test_payment_processing_failure" file="/home/selva/EventBookingSystem/tests/Unit/PaymentServiceTest.php" line="67" class="Tests\Unit\PaymentServiceTest" classname="Tests.Unit.PaymentServiceTest" assertions="4" time="0.038488"/>
+        <testcase name="test_process_refund" file="/home/selva/EventBookingSystem/tests/Unit/PaymentServiceTest.php" line="111" class="Tests\Unit\PaymentServiceTest" classname="Tests.Unit.PaymentServiceTest" assertions="3" time="0.047608"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="6" assertions="12" errors="0" failures="0" skipped="0" time="0.314026">
+      <testsuite name="Tests\Feature\BookingTest" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" tests="5" assertions="11" errors="0" failures="0" skipped="0" time="0.283540">
+        <testcase name="test_customer_can_book_ticket" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" line="18" class="Tests\Feature\BookingTest" classname="Tests.Feature.BookingTest" assertions="4" time="0.090705"/>
+        <testcase name="test_cannot_book_more_than_available" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" line="50" class="Tests\Feature\BookingTest" classname="Tests.Feature.BookingTest" assertions="1" time="0.038401"/>
+        <testcase name="test_customer_can_cancel_booking" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" line="67" class="Tests\Feature\BookingTest" classname="Tests.Feature.BookingTest" assertions="3" time="0.059582"/>
+        <testcase name="test_customer_cannot_cancel_others_booking" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" line="96" class="Tests\Feature\BookingTest" classname="Tests.Feature.BookingTest" assertions="1" time="0.049124"/>
+        <testcase name="test_double_booking_prevention" file="/home/selva/EventBookingSystem/tests/Feature/BookingTest.php" line="114" class="Tests\Feature\BookingTest" classname="Tests.Feature.BookingTest" assertions="2" time="0.045727"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="/home/selva/EventBookingSystem/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.030487">
+        <testcase name="test_the_application_returns_a_successful_response" file="/home/selva/EventBookingSystem/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.030487"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

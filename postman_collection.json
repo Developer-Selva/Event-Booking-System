@@ -1,0 +1,451 @@
+
+## Postman Collection JSON
+
+```json
+{
+  "info": {
+    "name": "Event Booking System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Complete API collection for Event Booking System with Authentication, Events, Tickets, Bookings, and Payments"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"phone\": \"+1234567890\",\n    \"role\": \"customer\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin1@example.com\",\n    \"password\": \"password\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Login successful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    pm.response.to.have.jsonBody('token');",
+                  "    pm.environment.set(\"token\", pm.response.json().token);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "me"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List Events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "search",
+                  "value": "music",
+                  "disabled": true
+                },
+                {
+                  "key": "date",
+                  "value": "2024-12-25",
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "New York",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Event",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/{{event_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events", "{{event_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Tech Conference 2024\",\n    \"description\": \"Annual technology conference with industry leaders\",\n    \"date\": \"2024-09-20 09:00:00\",\n    \"location\": \"Convention Center, San Francisco\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events"]
+            }
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Updated Tech Conference 2024\",\n    \"description\": \"Updated description\",\n    \"location\": \"Moscone Center, San Francisco\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/events/{{event_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events", "{{event_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/events/{{event_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events", "{{event_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"VIP\",\n    \"price\": 299.99,\n    \"quantity\": 100\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/events/{{event_id}}/tickets",
+              "host": ["{{base_url}}"],
+              "path": ["api", "events", "{{event_id}}", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Update Ticket",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"VIP Plus\",\n    \"price\": 349.99,\n    \"quantity\": 150\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tickets/{{ticket_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tickets", "{{ticket_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Ticket",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tickets/{{ticket_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tickets", "{{ticket_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Book Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/tickets/{{ticket_id}}/bookings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tickets", "{{ticket_id}}", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Get My Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}/cancel",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookings", "{{booking_id}}", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Process Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"payment_method\": \"card\",\n    \"card_number\": \"4242424242424242\",\n    \"cvv\": \"123\",\n    \"expiry\": \"12/25\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}/payment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "bookings", "{{booking_id}}", "payment"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/payments/{{payment_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payments", "{{payment_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "event_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "ticket_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "payment_id",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}
